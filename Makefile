@@ -18,4 +18,4 @@ run-image-frontend:
 	docker run --rm -it -p8000:80 jizu/frontend-react:image
 
 push:
-	sh scripts/ci.sh
+	./scripts/ci.sh
