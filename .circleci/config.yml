@@ -24,8 +24,7 @@ commands:
 
 jobs:
   build:
-    context:
-      - jizu
+    context: jizu
     parameters:
       bazel-version:
         description: "Pinned Bazel version Replace with your one"
