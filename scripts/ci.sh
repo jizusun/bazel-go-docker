@@ -48,20 +48,26 @@ COMMIT_RANGE=${COMMIT_RANGE:-$(git merge-base origin/main HEAD)".."}
 cd "$(git rev-parse --show-toplevel)"
 
 # Get a list of the current files in package form by querying Bazel.
+
+echo "Bazel is analyzing the commit range: $COMMIT_RANGE"
+echo
+
 files=()
-for file in $(git diff --name-only ${COMMIT_RANGE} ); do
-  files+=($(bazel query --noshow_progress $file 2>/dev/null))
+for file in $(git diff --name-only ${COMMIT_RANGE}); do
+  files+=($(bazel query --noshow_progress $file  2>/dev/null ))
 done
 
 echo "files: $files"
+echo 
 
 # Query for the associated buildables
 buildables=$(bazel query \
     --keep_going \
     --noshow_progress \
-    "kind(.*_binary, rdeps(//..., set(${files[*]})))")
-
+    "kind('container_push', rdeps(//..., set(${files[*]})))")
+echo
 echo "buildables: $buildables"
+echo
 
 # Run the tests if there were results
 if [[ ! -z $buildables ]]; then

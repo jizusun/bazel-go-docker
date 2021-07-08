@@ -132,11 +132,10 @@ container_image(
     # user = "nonroot",
 )
 
-# https://github.com/bazelbuild/rules_docker#container_image
-# container_image(
-#     name = "app",
-#     # References container_pull from WORKSPACE (above)
-#     base = "@java_base//image",
-#     files = ["//java/com/example/app:Hello_deploy.jar"],
-#     cmd = ["Hello_deploy.jar"]
-# )
+container_push(
+    name = "image-push",
+    format = "Docker",
+    image = ":image",
+    registry = "index.docker.io",
+    repository = "jizu/create-react-app",
+)
