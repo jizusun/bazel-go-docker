@@ -24,7 +24,6 @@ commands:
 
 jobs:
   build:
-    context: jizu
     parameters:
       bazel-version:
         description: "Pinned Bazel version Replace with your one"
@@ -43,3 +42,12 @@ jobs:
             sudo ln -s /usr/bin/<< parameters.bazel-version >>  /usr/bin/bazel
             ./scripts/docker-login.sh
             make push
+
+
+
+workflows:
+  my-workflow:
+    jobs:
+      - build:
+          context:
+            - jizu
