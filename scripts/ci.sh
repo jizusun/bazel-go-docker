@@ -72,7 +72,7 @@ echo
 # Run the tests if there were results
 if [[ ! -z $buildables ]]; then
   echo "Building binaries"
-  bazel build $buildables
+  bazel run $buildables
 fi
 
 # tests=$(bazel query \
