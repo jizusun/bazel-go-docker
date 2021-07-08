@@ -27,7 +27,7 @@ jobs:
     parameters:
       bazel-version:
         description: "Pinned Bazel version Replace with your one"
-        default: "bazel-3.7.2"
+        default: "bazel-3.2.0"
         type: string
     working_directory: ~/repo
     docker:
