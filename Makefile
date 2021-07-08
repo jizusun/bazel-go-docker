@@ -10,3 +10,10 @@ run-image-backend:
 build-react:
 	bazel build //frontend-react:build
 
+
+build-image-frontend:
+	bazel run //frontend-react:image
+
+
+run-image-frontend:
+	docker run --rm -it -p8000:80 jizu/frontend-react:image

@@ -42,7 +42,7 @@
 # When running in Travis-CI, you can directly use the $TRAVIS_COMMIT_RANGE
 # environment variable.
 
-COMMIT_RANGE=${COMMIT_RANGE:-$(git merge-base origin/master HEAD)".."}
+COMMIT_RANGE=${COMMIT_RANGE:-$(git merge-base origin/main HEAD)".."}
 
 # Go to the root of the repo
 cd "$(git rev-parse --show-toplevel)"
@@ -50,27 +50,31 @@ cd "$(git rev-parse --show-toplevel)"
 # Get a list of the current files in package form by querying Bazel.
 files=()
 for file in $(git diff --name-only ${COMMIT_RANGE} ); do
-  files+=($(bazel query $file))
-  echo $(bazel query $file)
+  files+=($(bazel query --noshow_progress $file 2>/dev/null))
 done
+
+echo "files: $files"
 
 # Query for the associated buildables
 buildables=$(bazel query \
     --keep_going \
     --noshow_progress \
     "kind(.*_binary, rdeps(//..., set(${files[*]})))")
+
+echo "buildables: $buildables"
+
 # Run the tests if there were results
 if [[ ! -z $buildables ]]; then
   echo "Building binaries"
   bazel build $buildables
 fi
 
-tests=$(bazel query \
-    --keep_going \
-    --noshow_progress \
-    "kind(test, rdeps(//..., set(${files[*]}))) except attr('tags', 'manual', //...)")
-# Run the tests if there were results
-if [[ ! -z $tests ]]; then
-  echo "Running tests"
-  bazel test $tests
-fi
+# tests=$(bazel query \
+#     --keep_going \
+#     --noshow_progress \
+#     "kind(test, rdeps(//..., set(${files[*]}))) except attr('tags', 'manual', //...)")
+# # Run the tests if there were results
+# if [[ ! -z $tests ]]; then
+#   echo "Running tests"
+#   bazel test $tests
+# fi

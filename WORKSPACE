@@ -143,3 +143,13 @@ go_repository(
     sum = "h1:FDhOuMEY4JVRztM/gsbk+IKUQ8kj74bxZrgw87eMMVc=",
     version = "v0.0.0-20180917221912-90fa682c2a6e",
 )
+
+
+container_pull(
+    name = "nginx_base",
+    registry = "index.docker.io",
+    repository = "library/nginx",
+    tag = 'stable-alpine'
+    # 'tag' is also supported, but digest is encouraged for reproducibility.
+    # digest = "sha256:deadbeef",
+)
