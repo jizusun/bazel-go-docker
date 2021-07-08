@@ -3,13 +3,7 @@
 
 <https://dev.to/schoren/create-container-images-with-bazel-47am> 
 
-
-```sh
-
-
-
-
-```
+Also check the [Makefile](./Makefile)
 
 ## TODOs
 
