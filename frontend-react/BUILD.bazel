@@ -132,10 +132,12 @@ container_image(
     # user = "nonroot",
 )
 
+# https://github.com/bazelbuild/rules_docker#varying-image-names
 container_push(
     name = "image-push",
     format = "Docker",
     image = ":image",
     registry = "index.docker.io",
     repository = "jizu/create-react-app",
+    tag = "{VERSION}",
 )
