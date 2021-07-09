@@ -10,6 +10,8 @@ run-image-backend:
 build-react:
 	bazel build //frontend-react:build
 
+test-react:
+	bazel run //frontend-react:test
 
 build-image-frontend:
 	bazel run //frontend-react:image
