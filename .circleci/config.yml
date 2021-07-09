@@ -42,7 +42,12 @@ jobs:
             sudo ln -s /usr/bin/<< parameters.bazel-version >>  /usr/bin/bazel
             ./scripts/docker-login.sh
             make push
-
+      - save_cache:
+          key: bazel-cache-${{ arch }}-${{ env.cache-name }}-${{ github.ref }}
+          # key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - ~/.cache/bazelisk
+            - ~/.cache/bazel
 
 
 workflows:

@@ -22,7 +22,7 @@ func main() {
 		ReadTimeout:  1 * time.Second,
 	}
 
-	log.Println("Start serving...")
+	log.Println("Start serving the hasher...")
 	log.Fatal(srv.ListenAndServe())
 }
 

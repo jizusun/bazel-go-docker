@@ -32,5 +32,6 @@ container_push(
     image = ":image",
     registry = "index.docker.io",
     repository = "jizu/cmd-api",
+    tag = "{VERSION}",
 )
 
